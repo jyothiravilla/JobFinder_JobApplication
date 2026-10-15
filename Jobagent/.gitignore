@@ -1,0 +1,21 @@
+# Personal data and secrets: never commit these
+secrets.env
+.env
+.claude_token.env
+accounts.csv
+profile.md
+resume_master.md
+resume_template.html
+resumes/
+review/
+outbox/
+logs/
+backup-names/
+jobs.csv
+companies.csv
+tracker.csv
+digest.md
+scripts/banned_terms.txt
+*.pdf
+*.bak
+.DS_Store

@@ -1,0 +1,18 @@
+# job agent aliases: source this file from ~/.bashrc
+export JOB_AGENT_HOME="${JOB_AGENT_HOME:-$HOME/job-agent}"
+alias a-jobs='$JOB_AGENT_HOME/scripts/jobs.sh'
+alias a-new='$JOB_AGENT_HOME/scripts/newjobs.sh'
+alias a-filled='$JOB_AGENT_HOME/scripts/filled.sh'
+alias a-approve='$JOB_AGENT_HOME/scripts/approve_jobs.sh'
+alias a-fill='$JOB_AGENT_HOME/scripts/fill.sh'
+alias a-mark='$JOB_AGENT_HOME/scripts/mark.sh'
+alias a-status='$JOB_AGENT_HOME/scripts/status.sh'
+alias a-login='$JOB_AGENT_HOME/scripts/login_check.sh'
+alias a-help='$JOB_AGENT_HOME/scripts/help.sh'
+alias a-running='pgrep -af "approve.sh|batch_apply|review_batch|run.sh|claude -p" | grep -v pgrep | cut -c1-90 || echo nothing running'
+alias a-log='tail -n 25 "$(ls -t $JOB_AGENT_HOME/logs/approve-*.log $JOB_AGENT_HOME/logs/cron-*.log 2>/dev/null | head -1)"'
+alias a-pause='crontab -l | grep -v "run.sh apply" | crontab - && echo "apply job paused"'
+alias a-resume='crontab -l | grep -q "run.sh apply" || (crontab -l; echo "0 9 * * * $JOB_AGENT_HOME/scripts/run.sh apply") | crontab -; crontab -l'
+alias a-review='sed -i "s/^MODE: auto$/MODE: review/" $JOB_AGENT_HOME/CLAUDE.md && grep -n -E "^MODE: (review|auto)$" $JOB_AGENT_HOME/CLAUDE.md'
+alias a-auto='sed -i "s/^MODE: review$/MODE: auto/" $JOB_AGENT_HOME/CLAUDE.md && grep -n -E "^MODE: (review|auto)$" $JOB_AGENT_HOME/CLAUDE.md'
+alias a-stop='pkill -f approve.sh; pkill -f batch_apply.sh; pkill -f review_batch.sh; pkill -f scripts/run.sh; pkill -f "claude -p"; echo stopped'

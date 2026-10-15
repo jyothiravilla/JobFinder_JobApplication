@@ -1,0 +1,2 @@
+exampleproductname
+examplepartnumber[0-9]+
